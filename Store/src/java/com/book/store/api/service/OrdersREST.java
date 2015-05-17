@@ -19,7 +19,7 @@ import javax.ws.rs.PUT;
  *
  * @author diogo
  */
-@Path("Order")
+@Path("com.book.store.api.order")
 public class OrdersREST {
 
     @Context
