@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLDocumentController">
     <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
+        <Button fx:id="button" layoutX="385.0" layoutY="193.0" onAction="#handleButtonAction" text="Click Me!" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <ComboBox layoutX="100.0" layoutY="41.0" prefWidth="150.0" />
+      <Label layoutX="21.0" layoutY="45.0" text="Title wanted:" />
+      <Label layoutX="21.0" layoutY="120.0" text="Quantity" />
+      <Spinner fx:id="spinner" initialValue="1" layoutX="101.0" layoutY="116.0" min="0">
+          <editable>true</editable>
+      </Spinner>
+      <TextField layoutX="101.0" layoutY="79.0" />
+      <Label layoutX="22.0" layoutY="83.0" text="Client Name" />
+      <Label layoutX="27.0" layoutY="161.0" text="Total Price" />
+      <Label layoutX="147.0" layoutY="161.0" text="0" />
     </children>
 </AnchorPane>
