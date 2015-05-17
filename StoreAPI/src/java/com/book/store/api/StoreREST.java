@@ -5,9 +5,13 @@
  */
 package com.book.store.api;
 
+import com.book.store.StoreSessionRemote;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,6 +25,7 @@ import javax.ws.rs.PUT;
  */
 @Path("store")
 public class StoreREST {
+    StoreSessionRemote storeSession = lookupStoreSessionRemote();
 
     @Context
     private UriInfo context;
@@ -39,6 +44,7 @@ public class StoreREST {
     @Produces("application/xml")
     public String getXml() {
         //TODO return proper representation object
+        
         throw new UnsupportedOperationException();
     }
 
@@ -50,5 +56,15 @@ public class StoreREST {
     @PUT
     @Consumes("application/xml")
     public void putXml(String content) {
+    }
+
+    private StoreSessionRemote lookupStoreSessionRemote() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (StoreSessionRemote) c.lookup("java:global/BookStore/StoreEJB/StoreSession!com.book.store.StoreSessionRemote");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }
