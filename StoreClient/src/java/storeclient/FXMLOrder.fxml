@@ -4,11 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLOrderController">
     <children>
-        <Button fx:id="button" layoutX="158.0" layoutY="189.0" onAction="#handleButtonAction" text="Sell" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <ComboBox layoutX="100.0" layoutY="41.0" prefWidth="150.0" />
       <Label layoutX="21.0" layoutY="45.0" text="Title wanted:" />
       <Label layoutX="21.0" layoutY="120.0" text="Quantity" />
       <Spinner fx:id="spinner" initialValue="1" layoutX="101.0" layoutY="116.0" min="0">
@@ -16,8 +14,7 @@
       </Spinner>
       <TextField layoutX="101.0" layoutY="79.0" />
       <Label layoutX="22.0" layoutY="83.0" text="Client Name" />
-      <Label layoutX="27.0" layoutY="161.0" text="Total Price" />
-      <Label layoutX="147.0" layoutY="161.0" text="0" />
-      <Button layoutX="363.0" layoutY="108.0" onAction="#handleOrderButton" mnemonicParsing="false" text="Order Title" />
+      <Button layoutX="137.0" layoutY="165.0" onAction="#handleOrderButton" mnemonicParsing="false" text="Order" />
+      <TextField layoutX="101.0" layoutY="41.0" />
     </children>
 </AnchorPane>
