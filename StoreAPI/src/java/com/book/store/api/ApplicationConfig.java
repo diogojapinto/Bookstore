@@ -29,7 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.book.store.api.StoreREST.class);
+        resources.add(com.book.store.api.BooksResource.class);
+        resources.add(com.book.store.api.OrdersResource.class);
     }
     
 }

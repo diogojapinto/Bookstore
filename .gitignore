@@ -25,3 +25,6 @@
 /Store/dist/
 /IStoreAPI/nbproject/private/
 /StoreEJB/nbproject/private/
+/IStoreAPI/build/
+/IStoreAPI/dist/
+/StoreEJB/dist/

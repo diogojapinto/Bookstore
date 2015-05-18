@@ -5,7 +5,6 @@
  */
 package storeclient;
 
-import com.book.store.StoreSessionRemote;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,7 +22,6 @@ import javax.naming.NamingException;
  * @author diogo
  */
 public class FXMLDocumentController implements Initializable {
-    StoreSessionRemote storeRemote = lookupStoreSessionRemote();
     
     @FXML
     private Label label;
@@ -37,16 +35,5 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    private StoreSessionRemote lookupStoreSessionRemote() {
-        try {
-            Context c = new InitialContext();
-            return (StoreSessionRemote) c.lookup("java:comp/env/StoreSession");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
     }
-    
 }
