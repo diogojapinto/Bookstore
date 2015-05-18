@@ -7,15 +7,14 @@ package storeclient;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javafx.stage.Stage;
 
 /**
  *
@@ -30,6 +29,24 @@ public class FXMLDocumentController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
+    }
+    
+    @FXML
+    private void handleOrderButton(ActionEvent event) {
+        System.out.println("Hello!");
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLOrder.fxml"));
+        
+            Scene scene = new Scene(root);
+        
+            Stage stage = new Stage();
+        
+            stage.setScene(scene);
+        
+            stage.show();
+        } catch (Exception e) {
+            
+        }
     }
     
     @Override
