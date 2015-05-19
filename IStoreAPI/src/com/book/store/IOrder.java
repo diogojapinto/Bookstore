@@ -19,7 +19,7 @@ public interface IOrder {
 
     int getQuantity();
 
-    String getState();
+    String getStatus();
 
     String getTitle();
 
@@ -29,7 +29,7 @@ public interface IOrder {
 
     void setQuantity(int quantity);
 
-    void setState(String state);
+    void setStatus(String status);
 
     void setTitle(String title);
     

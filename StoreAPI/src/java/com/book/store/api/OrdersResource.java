@@ -7,7 +7,7 @@ package com.book.store.api;
 
 import com.book.store.resources.StoreStorage;
 import com.book.store.resources.Order;
-import java.net.URI;
+import com.book.store.resources.Order.StatusType;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,7 +18,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
@@ -33,20 +32,17 @@ public class OrdersResource {
 
     @Context
     private UriInfo context;
-    
     @EJB
     private StoreStorage storage;
 
-    /**
-     * Creates a new instance of StoreREST
-     */
     public OrdersResource() {
     }
+    
+    @GET
+    public ArrayList<Order> getAllOrders() {
+        return storage.getAllOrders();
+    }
 
-    /**
-     * Retrieves representation of an instance of com.book.store.api.OrdersResource
-     * @return an instance of java.lang.String
-     */
     @GET
     @Path("{username}")
     @Produces("application/xml")
@@ -54,16 +50,11 @@ public class OrdersResource {
         return storage.getOrders(username);
     }
 
-    /**
-     * PUT method for updating or creating an instance of OrdersResource
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
     @POST
+    @Path("{inStore}")
     @Consumes("application/xml")
-    public Response placeOrder(Order order) {
-      storage.addOrder(order);
-      
-      return Response.ok().build();
+    public Response placeOrder(Order order,@PathParam("inStore") boolean inStore) {
+      StatusType status = storage.addOrder(order, inStore);
+      return Response.ok().entity(status.toString()).build();
     }
 }

@@ -8,19 +8,30 @@ package com.book.store.resources;
 import com.book.store.IOrder;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.swing.text.DateFormatter;
+import javax.transaction.UserTransaction;
+import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,43 +40,48 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Order implements IOrder {
-    
-    @PersistenceContext(unitName = "StoreAPIPU")
-    private EntityManager em;
-    
+
     private static int counter = 0;
-   
+
     public enum StatusType {
+
+        DELIVERED,
         DISPATCHED,
         TO_BE_DISPATCHED,
         WAITING_EXPEDITION,
         NONE
     };
-    
-    public static String getWaitingExpeditionStatus() {
-        return "waiting expedition";
+
+    public static String getDeliveredStatus() {
+        return "delivered at " + addDaysToNow(0);
     }
-    
-    public static String getDispatchedStatus() {
-        return "dispatched at " + addDaysToNow(0);
+
+    public static String getDispatchedStatus(int days) {
+        return "dispatched at " + addDaysToNow(days);
     }
-    
+
     public static String getToBeDispatchedStatus(int days) {
         return "dispatch will occur at " + addDaysToNow(days);
     }
-    
+
+    public static String getWaitingExpeditionStatus() {
+        return "waiting expedition";
+    }
+
     public static StatusType getOrderStatusType(String status) {
-        if (status.contains("waiting")) {
-            return StatusType.WAITING_EXPEDITION;
+        if (status.contains("delivered")) {
+            return StatusType.DELIVERED;
         } else if (status.contains("dispatched")) {
             return StatusType.DISPATCHED;
+        } else if (status.contains("waiting")) {
+            return StatusType.WAITING_EXPEDITION;
         } else if (status.contains("dispatch will occur")) {
             return StatusType.TO_BE_DISPATCHED;
         } else {
             return StatusType.NONE;
         }
     }
-    
+
     private static String addDaysToNow(int days) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
@@ -73,33 +89,43 @@ public class Order implements IOrder {
         c.add(Calendar.DATE, days);
         return sdf.format(c.getTime());
     }
-    
+
     private int id;
     private String title;
     private int quantity;
     private String clientName;
     private String clientEmail;
-    private String state;
-    
-    
+    private String status;
+
     public Order() {
         id = -1;
         title = null;
         quantity = -1;
         clientName = null;
         clientEmail = null;
-        state = null;
+        status = null;
     }
 
-    public Order(String title, int quantity, String clientName, 
-            String clientEmail, String orderState) {
+    public Order(String title, int quantity, String clientName,
+            String clientEmail, String orderStatus) {
         this.id = ++counter;
         this.title = title;
         this.quantity = quantity;
         this.clientName = clientName;
         this.clientEmail = clientEmail;
-        this.state = orderState;
+        this.status = orderStatus;
     }
+
+    public Order(Order order) {
+        this.id = ++counter;
+        this.title = order.getTitle();
+        this.quantity = order.getQuantity();
+        this.clientName = order.getClientName();
+        this.clientEmail = order.getClientEmail();
+        status = null;
+    }
+    
+    
 
     @Override
     public String getTitle() {
@@ -140,48 +166,47 @@ public class Order implements IOrder {
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
-    
+
     @Override
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
     @Override
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public int getId() {
         return id;
     }
-    
-    /*
-    private int id;
-    private String title;
-    private int quantity;
-    private String clientName;
-    private String clientEmail;
-    private String state;*/
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     @Override
     public void printReceipt() {
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd-hh:mm:ss");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
         String date = sdf.format(new Date());
-        
+
         Path path = Paths.get(System.getProperty("user.home"), "receipts", date + ".txt");
-        
+        File logFile = path.toFile();
+        logFile.getParentFile().mkdirs();
+
         try {
-            PrintWriter writer = new PrintWriter(path.toString());
-            
+            PrintWriter writer = new PrintWriter(logFile);
+
             writer.println("Title:\t" + title);
             writer.println("Quantity:\t" + quantity);
-            writer.println("Total Cost:\t" + getTotalCost());
+            writer.println("Total Cost:\t" + this.getTotalCost());
             writer.println();
             writer.println("Client:\t" + clientName);
             writer.println("E-mail:\t" + clientEmail);
-            writer.println("State:\t" + state);
+            writer.println("Status:\t" + status);
+            writer.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Order.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,13 +214,80 @@ public class Order implements IOrder {
 
     @Override
     public void sendReceiptToEmail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String subject = "Order from " + clientName;
+        StringBuilder body = new StringBuilder();
+
+        body.append("Title:\t" + title + "\n");
+        body.append("Quantity:\t" + quantity + "\n");
+        body.append("Total Cost:\t" + getTotalCost() + "\n");
+        body.append("\n");
+        body.append("Client:\t" + clientName + "\n");
+        body.append("E-mail:\t" + clientEmail + "\n");
+        body.append("Status:\t" + status + "\n");
+        
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.fe.up.pt");
+        props.put("mail.smtp.port", 465);
+        props.put("mail.smtp.ssl.enable", true);
+
+        Session session = Session.getInstance(props);
+        session.setDebug(true);
+
+        MimeMessage message = new MimeMessage(session);
+        try {
+            message.setFrom(new InternetAddress("user@bookstore.com"));
+            InternetAddress[] address = {new InternetAddress(clientEmail)};
+            message.setRecipients(Message.RecipientType.TO, address);
+            message.setSubject(subject);
+            message.setSentDate(new Date());
+            message.setText(body.toString());
+            Transport.send(message);
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
+        }
     }
-    
+
     private float getTotalCost() {
-        Book book = (Book) em.createNamedQuery("Book.findByTitle")
-                .setParameter("title", title).getResultList().get(0);
-        return (float) (quantity * book.getPrice());
+        BooksResource_JerseyClient resource = new BooksResource_JerseyClient();
+        
+        Book book = resource.getBookInfo(Book.class, title);
+
+        if (book == null) {
+            return -1;
+        } else {
+            return (float) (quantity * book.getPrice());
+        }
     }
-    
+
+    static class BooksResource_JerseyClient {
+
+        private WebTarget webTarget;
+        private Client client;
+        private static final String BASE_URI = "http://localhost:8080/StoreAPI/webresources";
+
+        public BooksResource_JerseyClient() {
+            client = javax.ws.rs.client.ClientBuilder.newClient();
+            webTarget = client.target(BASE_URI).path("books");
+        }
+
+        public Response updateStoreStock(Object requestEntity) throws ClientErrorException {
+            return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_XML).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
+        }
+
+        public <T> T getBookInfo(Class<T> responseType, String title) throws ClientErrorException {
+            WebTarget resource = webTarget;
+            resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{title}));
+            return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+        }
+
+        public <T> T getAllBooksInfo(Class<T> responseType) throws ClientErrorException {
+            WebTarget resource = webTarget;
+            return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+        }
+
+        public void close() {
+            client.close();
+        }
+    }
+
 }

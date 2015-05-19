@@ -7,10 +7,12 @@ package com.book.store.resources;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author diogo
  */
 @Entity
+@Table(name = "BOOK")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
@@ -32,12 +35,15 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
+    @Column(name = "TITLE")
     private String title;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "PRICE")
     private double price;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "STOCK")
     private long stock;
 
     public Book() {

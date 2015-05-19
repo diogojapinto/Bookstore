@@ -6,6 +6,7 @@
 package com.book.store.api;
 
 import com.book.store.resources.Book;
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,11 +36,18 @@ public class BooksResource {
 
     public BooksResource() {
     }
+    
+    @GET
+    @Produces("application/xml")
+    public ArrayList<Book> getAllBooksInfo() {
+        return new ArrayList<Book>(em.createNamedQuery("Book.findAll")
+                .getResultList());
+    }
 
     @GET
-    @Path("/getInfo/{title}")
+    @Path("{title}")
     @Produces("application/xml")
-    public Book getBookInfo(@PathParam("username") String title) {
+    public Book getBookInfo(@PathParam("title") String title) {
         return (Book) em.createNamedQuery("Book.findByTitle")
                 .setParameter("title", title).getResultList().get(0);
     }
@@ -51,6 +59,9 @@ public class BooksResource {
                 .setParameter("title", book.getTitle()).getResultList().get(0);
         persistentBook.setStock(book.getStock());
         em.persist(persistentBook);
-        return Response.ok().build();
+        
+        String message = "updated stock of " + book.getTitle() 
+                + " to " + book.getStock();
+        return Response.ok().entity(message).build();
     }
 }
