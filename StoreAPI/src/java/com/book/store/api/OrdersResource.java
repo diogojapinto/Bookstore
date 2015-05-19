@@ -5,12 +5,16 @@
  */
 package com.book.store.api;
 
+import com.book.store.resources.Book;
 import com.book.store.resources.StoreStorage;
 import com.book.store.resources.Order;
 import com.book.store.resources.Order.StatusType;
+import com.book.store.Request;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -34,6 +38,8 @@ public class OrdersResource {
     private UriInfo context;
     @EJB
     private StoreStorage storage;
+    @PersistenceContext(unitName = "StoreAPIPU")
+    private EntityManager em;
 
     public OrdersResource() {
     }
@@ -56,5 +62,23 @@ public class OrdersResource {
     public Response placeOrder(Order order,@PathParam("inStore") boolean inStore) {
       StatusType status = storage.addOrder(order, inStore);
       return Response.ok().entity(status.toString()).build();
+    }
+    
+    @POST
+    @Path("deliverRequest")
+    @Consumes("application/xml")
+    public Response deliverRequest(Request request) {
+        Book book = (Book) em.createNamedQuery("Book.findByTitle")
+                .setParameter("title", request.getTitle()).getResultList().get(0);
+        
+        book.setStock(book.getStock() + request.getAmount());
+        em.persist(book);
+        
+        String msg = request.getTitle() + " stock updated to " + book.getStock();
+        return Response.ok().entity(msg).build();
+    }
+
+    public void persist(Object object) {
+        em.persist(object);
     }
 }

@@ -5,10 +5,16 @@
  */
 package com.book.store.resources;
 
+import com.book.store.Request;
 import com.book.store.resources.Order.StatusType;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.annotation.Resource;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -18,6 +24,11 @@ import javax.persistence.PersistenceContext;
  */
 @Singleton
 public class StoreStorage {
+    @Resource(mappedName = "jms/WarehousePool")
+    private Queue warehousePool;
+    @Inject
+    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
+    private JMSContext context;
     
     @PersistenceContext(unitName = "StoreAPIPU")
     private EntityManager em;
@@ -58,8 +69,9 @@ public class StoreStorage {
                 order.sendReceiptToEmail();
             }
         } else {
-            // TODO: send message to warehouse
-            // TODO: create requests
+            Request request = new Request(title, quantity * 10);
+            sendJMSMessageToWarehousePool(request.toMessage());
+            
             order.setStatus(Order.getWaitingExpeditionStatus());
             orders.putIfAbsent(clientName, new ArrayList<>());
             orders.get(clientName).add(order);
@@ -74,5 +86,9 @@ public class StoreStorage {
             allOrders.addAll(items);
         }
         return allOrders;
+    }
+
+    private void sendJMSMessageToWarehousePool(String messageData) {
+        context.createProducer().send(warehousePool, messageData);
     }
 }
