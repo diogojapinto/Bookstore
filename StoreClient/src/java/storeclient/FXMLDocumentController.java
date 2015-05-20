@@ -6,6 +6,7 @@
 package storeclient;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import storeclient.resources.*;
+import com.book.store.IBook;
 
 /**
  *
@@ -22,18 +24,18 @@ import javafx.stage.Stage;
  */
 public class FXMLDocumentController implements Initializable {
     
-    @FXML
-    private Label label;
+    BooksResource_JerseyClient resClient;
+    ArrayList<IBook> availableBooks;
+    String coiso;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
-        label.setText("Hello World!");
+        
     }
     
     @FXML
     private void handleOrderButton(ActionEvent event) {
-        System.out.println("Hello!");
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLOrder.fxml"));
         
@@ -51,6 +53,8 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        resClient = new BooksResource_JerseyClient();
+        coiso = resClient.getAllBooksInfo(String.class);
+        System.out.println(coiso);
     }
 }
