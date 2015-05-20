@@ -43,7 +43,7 @@ public class OrdersResource {
 
     public OrdersResource() {
     }
-    
+
     @GET
     public ArrayList<Order> getAllOrders() {
         return storage.getAllOrders();
@@ -59,21 +59,25 @@ public class OrdersResource {
     @POST
     @Path("{inStore}")
     @Consumes("application/xml")
-    public Response placeOrder(Order order,@PathParam("inStore") boolean inStore) {
-      StatusType status = storage.addOrder(order, inStore);
-      return Response.ok().entity(status.toString()).build();
+    public Response placeOrder(Order order, @PathParam("inStore") boolean inStore) {
+        StatusType status = storage.addOrder(order, inStore);
+        if (status == StatusType.NONE) {
+            return Response.noContent().build();
+        } else {
+            return Response.ok().entity(status.toString()).build();
+        }
     }
-    
+
     @POST
     @Path("deliverRequest")
     @Consumes("application/xml")
     public Response deliverRequest(Request request) {
         Book book = (Book) em.createNamedQuery("Book.findByTitle")
                 .setParameter("title", request.getTitle()).getResultList().get(0);
-        
+
         book.setStock(book.getStock() + request.getAmount());
         em.persist(book);
-        
+
         String msg = request.getTitle() + " stock updated to " + book.getStock();
         return Response.ok().entity(msg).build();
     }

@@ -57,6 +57,10 @@ public class StoreStorage {
         Book book = (Book) em.createNamedQuery("Book.findByTitle")
                 .setParameter("title", title).getResultList().get(0);
         
+        if (book == null) {
+            return StatusType.NONE;
+        }
+        
         if (book.getStock() > quantity) {
             book.setStock(book.getStock() - quantity);
             em.persist(book);
