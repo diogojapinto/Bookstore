@@ -6,8 +6,8 @@
 
 <AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLDocumentController">
     <children>
-        <Button fx:id="button" layoutX="158.0" layoutY="217.0" onAction="#handleButtonAction" text="Sell" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Button fx:id="button" layoutX="158.0" layoutY="217.0" onAction="#handleButtonAction" text="Sell" />
+      <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <ComboBox fx:id="availableTitles" layoutX="100.0" layoutY="41.0" prefWidth="150.0" />
       <Label layoutX="21.0" layoutY="45.0" text="Title wanted:" />
       <Label layoutX="21.0" layoutY="120.0" text="Quantity" />

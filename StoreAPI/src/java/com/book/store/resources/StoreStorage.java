@@ -6,7 +6,6 @@
 package com.book.store.resources;
 
 import com.book.store.Request;
-import com.book.store.resources.Order.StatusType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.Resource;
@@ -46,7 +45,7 @@ public class StoreStorage {
         }
     }
     
-    public StatusType addOrder(Order receivedOrder, boolean inStore) {
+    public Order.StatusType addOrder(Order receivedOrder, boolean inStore) {
         Order order = new Order(receivedOrder);
         
         String clientName = order.getClientName();
@@ -58,7 +57,7 @@ public class StoreStorage {
                 .setParameter("title", title).getResultList().get(0);
         
         if (book == null) {
-            return StatusType.NONE;
+            return Order.StatusType.NONE;
         }
         
         if (book.getStock() > quantity) {

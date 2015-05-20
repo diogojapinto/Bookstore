@@ -14,8 +14,6 @@
             <included-library dirs="200">reference.IStoreAPI.jar</included-library>
             <included-library dirs="200">libs.restapi.classpath</included-library>
             <included-library dirs="200">libs.restlib.classpath</included-library>
-            <included-library dirs="200">libs.javaee-api-7.0.classpath</included-library>
-            <included-library dirs="200">libs.jaxws21.classpath</included-library>
         </data>
         <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
             <definitions>./lib/nblibraries.properties</definitions>
