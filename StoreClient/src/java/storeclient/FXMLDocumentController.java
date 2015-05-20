@@ -15,8 +15,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import storeclient.resources.*;
 import com.book.store.IBook;
+import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+import storeclient.resources.BooksResource_JerseyClient;
 
 /**
  *
@@ -53,8 +57,10 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         resClient = new BooksResource_JerseyClient();
-        coiso = resClient.getAllBooksInfo(String.class);
+        String coiso = resClient.getAllBooksInfo(String.class);
         System.out.println(coiso);
-    }
+    }  
+    
 }

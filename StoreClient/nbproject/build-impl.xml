@@ -810,18 +810,18 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" if="is.server.weblogic" name="library-inclusion-in-archive">
         <basename file="${reference.IStoreAPI.jar}" property="manifest.reference.IStoreAPI.jar"/>
-        <basename file="${libs.restapi.classpath}" property="manifest.libs.restapi.classpath"/>
+        <basename file="${libs.restlib.classpath}" property="manifest.libs.restlib.classpath"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Extension-List" value="jar-1 jar-2 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.IStoreAPI.jar}"/>
-            <attribute name="jar-2-Extension-Name" value="${manifest.libs.restapi.classpath}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.libs.restlib.classpath}"/>
         </manifest>
     </target>
     <target depends="compile" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.IStoreAPI.jar}" manifestproperty="manifest.reference.IStoreAPI.jar" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.restapi.classpath}" manifestproperty="manifest.libs.restapi.classpath" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.restlib.classpath}" manifestproperty="manifest.libs.restlib.classpath" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.IStoreAPI.jar} lib/${manifest.reference.IStoreAPI.jar} ${manifest.libs.restapi.classpath} lib/${manifest.libs.restapi.classpath} "/>
+            <attribute name="Class-Path" value="${manifest.reference.IStoreAPI.jar} lib/${manifest.reference.IStoreAPI.jar} ${manifest.libs.restlib.classpath} lib/${manifest.libs.restlib.classpath} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
