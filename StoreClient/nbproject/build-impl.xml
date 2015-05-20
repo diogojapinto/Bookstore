@@ -810,15 +810,27 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" if="is.server.weblogic" name="library-inclusion-in-archive">
         <basename file="${reference.IStoreAPI.jar}" property="manifest.reference.IStoreAPI.jar"/>
+        <basename file="${libs.restapi.classpath}" property="manifest.libs.restapi.classpath"/>
+        <basename file="${libs.restlib.classpath}" property="manifest.libs.restlib.classpath"/>
+        <basename file="${libs.javaee-api-7.0.classpath}" property="manifest.libs.javaee-api-7.0.classpath"/>
+        <basename file="${libs.jaxws21.classpath}" property="manifest.libs.jaxws21.classpath"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.IStoreAPI.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.libs.restapi.classpath}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.libs.restlib.classpath}"/>
+            <attribute name="jar-4-Extension-Name" value="${manifest.libs.javaee-api-7.0.classpath}"/>
+            <attribute name="jar-5-Extension-Name" value="${manifest.libs.jaxws21.classpath}"/>
         </manifest>
     </target>
     <target depends="compile" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.IStoreAPI.jar}" manifestproperty="manifest.reference.IStoreAPI.jar" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.restapi.classpath}" manifestproperty="manifest.libs.restapi.classpath" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.restlib.classpath}" manifestproperty="manifest.libs.restlib.classpath" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.javaee-api-7.0.classpath}" manifestproperty="manifest.libs.javaee-api-7.0.classpath" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.jaxws21.classpath}" manifestproperty="manifest.libs.jaxws21.classpath" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.IStoreAPI.jar} lib/${manifest.reference.IStoreAPI.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.IStoreAPI.jar} lib/${manifest.reference.IStoreAPI.jar} ${manifest.libs.restapi.classpath} lib/${manifest.libs.restapi.classpath} ${manifest.libs.restlib.classpath} lib/${manifest.libs.restlib.classpath} ${manifest.libs.javaee-api-7.0.classpath} lib/${manifest.libs.javaee-api-7.0.classpath} ${manifest.libs.jaxws21.classpath} lib/${manifest.libs.jaxws21.classpath} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">

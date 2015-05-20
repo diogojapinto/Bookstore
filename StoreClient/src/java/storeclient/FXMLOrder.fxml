@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="256.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLOrderController">
+<AnchorPane id="AnchorPane" prefHeight="213.0" prefWidth="307.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storeclient.FXMLOrderController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Label layoutX="21.0" layoutY="45.0" text="Title wanted:" />
@@ -14,7 +14,7 @@
       </Spinner>
       <TextField layoutX="101.0" layoutY="79.0" />
       <Label layoutX="22.0" layoutY="83.0" text="Client Name" />
-      <Button layoutX="137.0" layoutY="165.0" onAction="#handleOrderButton" mnemonicParsing="false" text="Order" />
+      <Button layoutX="137.0" layoutY="165.0" mnemonicParsing="false" onAction="#handleOrderButton" text="Order" />
       <TextField layoutX="101.0" layoutY="41.0" />
     </children>
 </AnchorPane>
