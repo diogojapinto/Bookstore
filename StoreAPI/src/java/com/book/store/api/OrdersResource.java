@@ -31,7 +31,7 @@ import javax.ws.rs.core.Response;
  * @author diogo
  */
 @Stateless
-@Path("/orders")
+@Path("orders")
 public class OrdersResource {
 
     @Context

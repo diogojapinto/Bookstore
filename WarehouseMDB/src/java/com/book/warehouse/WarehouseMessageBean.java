@@ -5,26 +5,42 @@
  */
 package com.book.warehouse;
 
+import com.book.store.Request;
+import java.util.ArrayList;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.jms.JMSDestinationDefinition;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
 /**
  *
  * @author diogo
  */
+@JMSDestinationDefinition(name = "jms/WarehousePool", interfaceName = "javax.jms.Queue", resourceAdapter = "jmsra", destinationName = "WarehousePool")
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/WarehousePool"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class WarehouseMessageBean implements MessageListener {
     
+    private ArrayList<Request> requests = new ArrayList<>();
+
     public WarehouseMessageBean() {
     }
-    
+
     @Override
     public void onMessage(Message message) {
+        if (message instanceof TextMessage) {
+            try {
+                String text = ((TextMessage) message).getText();
+                Request request = new Request(text);
+                requests.add(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
-    
+
 }
