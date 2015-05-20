@@ -24,7 +24,7 @@ import storeclient.resources.BooksResource_JerseyClient;
 
 /**
  *
- * @author diogo
+ * @author ASUS
  */
 public class FXMLDocumentController implements Initializable {
     
@@ -55,12 +55,28 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleUpdateButton(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLUpdate.fxml"));
+        
+            Scene scene = new Scene(root);
+        
+            Stage stage = new Stage();
+        
+            stage.setScene(scene);
+        
+            stage.show();
+        } catch (Exception e) {
+            
+        }
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         resClient = new BooksResource_JerseyClient();
         String coiso = resClient.getAllBooksInfo(String.class);
         System.out.println(coiso);
-    }  
-    
+    } 
 }

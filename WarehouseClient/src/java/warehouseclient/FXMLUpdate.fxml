@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="147.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehouseclient.FXMLUpdateController">
+    <children>
+      <Label layoutX="47.0" layoutY="36.0" text="Book Title" />
+      <Label layoutX="27.0" layoutY="71.0" text="Request Amount" />
+      <Button layoutX="151.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleUpdateButton" text="Update" />
+      <TextField layoutX="127.0" layoutY="67.0" />
+      <Label fx:id="bookTitleLabel" layoutX="165.0" layoutY="36.0" />
+    </children>
+</AnchorPane>
