@@ -37,16 +37,22 @@ public class FXMLDocumentController implements Initializable {
     TextField requestAmountDispatched;
     
     @FXML
-    Label requestAmount;
+    Label requestAmount, warningLabel;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
-        if (availableRequestsComboBox.getValue() != null && availableRequestsComboBox.getValue().toString().trim().isEmpty() && requestAmountDispatched.getText() != null && !requestAmountDispatched.getText().trim().isEmpty()) {
-            if (Integer.parseInt(requestAmount.getText()) > 0 && Integer.parseInt(requestAmount.getText()) <= Integer.parseInt(requestAmount.getText())) {
+        if (availableRequestsComboBox.getValue() != null && !availableRequestsComboBox.getValue().toString().trim().isEmpty() && requestAmountDispatched.getText() != null && !requestAmountDispatched.getText().trim().isEmpty()) {
+            if (Integer.parseInt(requestAmountDispatched.getText()) > 0 && Integer.parseInt(requestAmountDispatched.getText()) <= Integer.parseInt(requestAmount.getText())) {
                 Request request = new Request(availableRequestsComboBox.getValue().toString(),Integer.parseInt(requestAmountDispatched.getText()));
+                System.out.println("Delivering request...");
                 ordersClient.deliverRequest(request);
+                System.out.println("Request delivered");
+            } else {
+                warningLabel.setText("The amount to be dispatched has to higher than 0 and lower than the original amount");
             }
+        } else {
+            warningLabel.setText("You have to fill in all the fields!");
         }
     }
     
@@ -63,7 +69,7 @@ public class FXMLDocumentController implements Initializable {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 for (int i = 0, l = availableRequests.size(); i < l; i++) {
                     if (availableRequestsComboBox.getValue().toString().equals(availableRequests.get(i).getTitle())) {
-                        requestAmount.setText(""+availableRequests.get(i).getAmount());
+                        requestAmount.setText(""+availableRequests.get(i).getQuantity());
                         break;
                     }
                 }

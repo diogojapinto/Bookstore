@@ -40,7 +40,7 @@ public class Request {
         this.title = title;
     }
 
-    public int getAmount() {
+    public int getQuantity() {
         return quantity;
     }
 
