@@ -10,6 +10,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.TextField;
+import storegui.resources.Order;
+import storegui.resources.OrdersResource_JerseyClient;
 
 /**
  *
@@ -18,13 +22,28 @@ import javafx.fxml.Initializable;
 public class FXMLOrderController implements Initializable {
     
     @FXML
+    TextField nBooks, clientName, titleWanted;
+    
+    OrdersResource_JerseyClient ordersClient;
+    
+    @FXML
     private void handleOrderButton(ActionEvent event) {
-        System.out.println("Ai ui carreguei-me!");
+        if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty() && 
+                clientName.getText() != null && !clientName.getText().trim().isEmpty() && 
+                titleWanted.getText() != null && !titleWanted.getText().trim().isEmpty()) {
+            Order order = new Order();
+            order.setQuantity(Integer.parseInt(nBooks.getText()));
+            order.setTitle(titleWanted.getText());
+            order.setClientName(clientName.getText());
+            ordersClient.placeOrder(order, "false");
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+        }
+        
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ordersClient = new OrdersResource_JerseyClient();
     }    
     
 }
