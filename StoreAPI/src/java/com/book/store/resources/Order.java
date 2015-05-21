@@ -5,7 +5,6 @@
  */
 package com.book.store.resources;
 
-import com.book.store.IOrder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -23,11 +22,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
@@ -39,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author diogo
  */
 @XmlRootElement
-public class Order implements IOrder {
+public class Order {
 
     private static int counter = 0;
 
@@ -125,59 +119,46 @@ public class Order implements IOrder {
         status = null;
     }
     
-    
-
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
-    @Override
     public int getQuantity() {
         return quantity;
     }
 
-    @Override
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    @Override
     public String getClientName() {
         return clientName;
     }
 
-    @Override
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
 
-    @Override
     public String getClientEmail() {
         return clientEmail;
     }
 
-    @Override
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
 
-    @Override
     public String getStatus() {
         return status;
     }
 
-    @Override
     public void setStatus(String status) {
         this.status = status;
     }
 
-    @Override
     public int getId() {
         return id;
     }
@@ -186,7 +167,6 @@ public class Order implements IOrder {
         this.id = id;
     }
     
-    @Override
     public void printReceipt() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
@@ -212,7 +192,6 @@ public class Order implements IOrder {
         }
     }
 
-    @Override
     public void sendReceiptToEmail() {
         String subject = "Order from " + clientName;
         StringBuilder body = new StringBuilder();

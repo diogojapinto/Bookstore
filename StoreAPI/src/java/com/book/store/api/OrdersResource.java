@@ -9,7 +9,7 @@ import com.book.store.resources.Book;
 import com.book.store.resources.StoreStorage;
 import com.book.store.resources.Order;
 import com.book.store.resources.Order.StatusType;
-import com.book.store.Request;
+import com.book.store.resources.Request;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
