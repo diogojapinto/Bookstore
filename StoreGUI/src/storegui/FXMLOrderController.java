@@ -44,6 +44,5 @@ public class FXMLOrderController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ordersClient = new OrdersResource_JerseyClient();
-    }    
-    
+    }       
 }

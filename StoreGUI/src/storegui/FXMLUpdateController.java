@@ -52,5 +52,4 @@ public class FXMLUpdateController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         client = new BooksResource_JerseyClient();
     }    
-    
 }

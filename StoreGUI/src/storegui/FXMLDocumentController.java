@@ -115,6 +115,7 @@ public class FXMLDocumentController implements Initializable {
                 Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
                 totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
                 } catch (Exception e) {
+                    
                 }
             }
         });

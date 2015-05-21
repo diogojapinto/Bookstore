@@ -14,8 +14,9 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author diogo
+ * @author ASUS
  */
+
 public class BooksResource_JerseyClient {
 
     private WebTarget webTarget;
