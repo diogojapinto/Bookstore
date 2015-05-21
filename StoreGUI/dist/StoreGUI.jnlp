@@ -8,8 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="StoreGUI.jar" size="7396" download="eager" />
-    <jar href="lib/IStoreAPI.jar" size="4256" download="eager" />
+    <jar href="StoreGUI.jar" size="15063" download="eager" />
     <jar href="lib/asm-all-repackaged-2.2.0-b21.jar" size="318566" download="eager" />
     <jar href="lib/cglib-2.2.0-b21.jar" size="282554" download="eager" />
     <jar href="lib/eclipselink.jar" size="8478776" download="eager" />

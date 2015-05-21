@@ -45,6 +45,7 @@ public class OrdersResource {
     }
 
     @GET
+    @Produces("application/xml")
     public ArrayList<Order> getAllOrders() {
         return storage.getAllOrders();
     }

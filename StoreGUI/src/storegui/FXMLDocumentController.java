@@ -5,7 +5,6 @@
  */
 package storegui;
 
-import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.book.store.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.ws.rs.core.GenericType;
-import resources.BooksResource_JerseyClient;
+import storegui.resources.Book;
+import storegui.resources.BooksResource_JerseyClient;
 
 /**
  *
@@ -26,8 +26,8 @@ import resources.BooksResource_JerseyClient;
 public class FXMLDocumentController implements Initializable {
     
     BooksResource_JerseyClient client;
-    ArrayList<IBook> availableBooks;
-    GenericType<ArrayList<IBook>> list = new GenericType<ArrayList<IBook>>(){};
+    ArrayList<Book> availableBooks;
+    GenericType<ArrayList<Book>> list = new GenericType<ArrayList<Book>>(){};
     String coiso;
     
     @FXML
@@ -73,6 +73,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
         client = new BooksResource_JerseyClient(); 
-        availableBooks = client.getAllBooksInfo(new GenericType<ArrayList<IBook>>(){});
+        availableBooks = client.getAllBooksInfo();
+        System.err.println(availableBooks.get(0).getTitle());
     }
 }

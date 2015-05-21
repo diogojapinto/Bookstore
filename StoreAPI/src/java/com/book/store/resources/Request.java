@@ -21,9 +21,9 @@ public class Request {
         quantity = -1;
     }
 
-    public Request(String title, int amount) {
+    public Request(String title, int quantity) {
         this.title = title;
-        this.quantity = amount;
+        this.quantity = quantity;
     }
     
     public Request(String message) {
@@ -44,8 +44,8 @@ public class Request {
         return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.quantity = amount;
+    public void setAmount(int quantity) {
+        this.quantity = quantity;
     }
     
     public String toMessage() {
