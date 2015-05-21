@@ -5,7 +5,15 @@
  */
 package storeclient.resources;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Startup;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
@@ -15,7 +23,8 @@ import javax.ws.rs.core.Response;
  *
  * @author ASUS
  */
-public class BooksResource_JerseyClient {
+
+public class BooksResource_JerseyClient implements Serializable {
 
     private WebTarget webTarget;
     private Client client;
@@ -24,6 +33,7 @@ public class BooksResource_JerseyClient {
     public BooksResource_JerseyClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTarget = client.target(BASE_URI).path("books");
+        System.out.println(getAllBooksInfo(String.class));
     }
 
     public Response updateStoreStock(Object requestEntity) throws ClientErrorException {

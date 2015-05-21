@@ -16,26 +16,30 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.book.store.IBook;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
 import storeclient.resources.BooksResource_JerseyClient;
 
 /**
  *
  * @author ASUS
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController {
     
-    BooksResource_JerseyClient resClient;
+    BooksResource_JerseyClient client;
     ArrayList<IBook> availableBooks;
     String coiso;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        
+        System.out.println("You clicked me!");       
+        client = new BooksResource_JerseyClient(); 
     }
     
     @FXML
@@ -57,6 +61,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleUpdateButton(ActionEvent event) {
+        
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLUpdate.fxml"));
         
@@ -71,12 +76,4 @@ public class FXMLDocumentController implements Initializable {
             
         }
     }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-        resClient = new BooksResource_JerseyClient();
-        String coiso = resClient.getAllBooksInfo(String.class);
-        System.out.println(coiso);
-    } 
 }
