@@ -1,0 +1,22 @@
+<order>
+    <title>test</title>
+    <quantity>10</quantity>
+    <clientName>Diogo</clientName>
+    <clientEmail>diogojapinto@gmail.com</clientEmail>
+</order>
+
+
+<book>
+    <price>2.0</price>
+    <stock>5</stock>
+    <title>test</title>
+</book> 
+
+<request>
+	<title>test</title>
+	<amount>10</amount>
+</request>
+
+
+
+check for errors on rest
