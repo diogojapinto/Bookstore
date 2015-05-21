@@ -7,11 +7,10 @@
 <AnchorPane id="AnchorPane" prefHeight="215.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehousegui.FXMLDocumentController">
     <children>
         <Button fx:id="button" layoutX="64.0" layoutY="146.0" onAction="#handleButtonAction" text="Dispatch" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Label layoutX="47.0" layoutY="36.0" text="Requests" />
-      <ComboBox layoutX="126.0" layoutY="32.0" prefWidth="150.0" />
+      <ComboBox fx:id="availableRequestsComboBox" layoutX="126.0" layoutY="32.0" prefWidth="150.0" />
       <Label layoutX="27.0" layoutY="71.0" text="Request Amount" />
-      <Label layoutX="154.0" layoutY="71.0" text="0" />
+      <Label fx:id="requestAmount" layoutX="154.0" layoutY="71.0" text="0" />
       <Button layoutX="224.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleUpdateButton" text="Update" />
     </children>
 </AnchorPane>

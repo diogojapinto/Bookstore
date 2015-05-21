@@ -5,7 +5,6 @@
  */
 package storegui;
 
-import java.awt.event.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javax.ws.rs.core.GenericType;
 import storegui.resources.Book;
 import storegui.resources.BooksResource_JerseyClient;
 import storegui.resources.Order;
@@ -112,8 +110,8 @@ public class FXMLDocumentController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
                 try{
-                Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
-                totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
+                    Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
+                    totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
                 } catch (Exception e) {
                     
                 }
@@ -121,12 +119,12 @@ public class FXMLDocumentController implements Initializable {
         });
         
         availableTitles.valueProperty().addListener(new ChangeListener<String>() {
-        @Override public void changed(ObservableValue ov, String t, String t1) {
-            if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty()) {
-                Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
-                totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
-            }
-        }    
-    });
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty()) {
+                    Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
+                    totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
+                }
+            }    
+        });
     }
 }
