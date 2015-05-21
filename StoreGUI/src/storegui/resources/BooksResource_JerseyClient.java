@@ -14,8 +14,9 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author diogo
+ * @author ASUS
  */
+
 public class BooksResource_JerseyClient {
 
     private WebTarget webTarget;
@@ -31,10 +32,10 @@ public class BooksResource_JerseyClient {
         return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_XML).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
     }
 
-    public <T> T getBookInfo(Class<T> responseType, String title) throws ClientErrorException {
+    public Book getBookInfo(String title) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{title}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(new GenericType<Book>(){});
     }
 
     public ArrayList<Book> getAllBooksInfo() throws ClientErrorException {
