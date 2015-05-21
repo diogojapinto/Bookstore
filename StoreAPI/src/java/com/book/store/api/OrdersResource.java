@@ -52,14 +52,14 @@ public class OrdersResource {
 
     @GET
     @Path("{username}")
-    @Produces("application/xml")
+    @Produces({"application/xml", "application/json"})
     public ArrayList<Order> getOrders(@PathParam("username") String username) {
         return storage.getOrders(username);
     }
 
     @POST
     @Path("{inStore}")
-    @Consumes("application/xml")
+    @Consumes({"application/xml", "application/json"})
     public Response placeOrder(Order order, @PathParam("inStore") boolean inStore) {
         StatusType status = storage.addOrder(order, inStore);
         if (status == StatusType.NONE) {
