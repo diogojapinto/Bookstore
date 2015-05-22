@@ -49,6 +49,15 @@ public class OrdersResource_JerseyClient {
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(new GenericType<ArrayList<Order>>(){});
     }
+    
+    public ArrayList<Request> getAllRequests() throws ClientErrorException{
+        WebTarget resource = webTarget;
+        return resource.path("requests").request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(new GenericType<ArrayList<Request>>(){});
+    }
+    
+    public Response acceptRequest(Object requestEntity) throws ClientErrorException{
+        return webTarget.path("deliverRequest").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
+    }
 
     public void close() {
         client.close();

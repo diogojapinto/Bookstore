@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import storegui.resources.Book;
@@ -40,9 +41,9 @@ public class FXMLDispatchController implements Initializable {
         if (pendingOrdersComboBox.getValue() != null && !pendingOrdersComboBox.getValue().toString().trim().isEmpty()) {
            boolean success = ordersClient.dispatchOrder(currentOrderSelected).readEntity(Boolean.class);
            if (success) {
-               System.out.println("ola");
+                ((Node)(event.getSource())).getScene().getWindow().hide();
            } else {
-               System.out.println("xau");
+               errorLabel.setText("Error dispatching order");
            }
         } else {
             errorLabel.setText("You have to choose an order!");

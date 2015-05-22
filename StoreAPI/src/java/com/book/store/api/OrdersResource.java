@@ -79,7 +79,7 @@ public class OrdersResource {
     
     @GET
     @Path("requests")
-    @Produces("applications/xml")
+    @Produces("application/xml")
     public ArrayList<Request> getAllRequests() {
         return storage.getAllRequests();
     }
