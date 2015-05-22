@@ -70,6 +70,7 @@ public class Order {
     private String title;
     private int quantity;
     private String clientName;
+    private String clientAddress;
     private String clientEmail;
     private String status;
 
@@ -78,16 +79,18 @@ public class Order {
         title = null;
         quantity = -1;
         clientName = null;
+        clientAddress = null;
         clientEmail = null;
         status = null;
     }
 
-    public Order(String title, int quantity, String clientName,
+    public Order(String title, int quantity, String clientName, String clientAddress,
             String clientEmail, String orderStatus) {
         this.id = ++counter;
         this.title = title;
         this.quantity = quantity;
         this.clientName = clientName;
+        this.clientAddress = clientAddress;
         this.clientEmail = clientEmail;
         this.status = orderStatus;
     }
@@ -97,6 +100,7 @@ public class Order {
         this.title = order.getTitle();
         this.quantity = order.getQuantity();
         this.clientName = order.getClientName();
+        this.clientAddress = order.getClientAddress();
         this.clientEmail = order.getClientEmail();
         status = null;
     }
@@ -148,4 +152,13 @@ public class Order {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getClientAddress() {
+        return clientAddress;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
+
 }
