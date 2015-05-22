@@ -70,7 +70,7 @@ public class OrdersResource {
     }
     
     @PUT
-    @Path("dispatcPending")
+    @Path("dispatchPending")
     @Consumes("application/xml")
     public Response dispatchOrder(Order order) {
         storage.dispatchOrder(order.getId());
