@@ -16,7 +16,8 @@
       <Label layoutX="27.0" layoutY="181.0" text="Total Price" />
       <Label fx:id="totalPriceLabel" layoutX="151.0" layoutY="181.0" text="0" />
       <Button layoutX="363.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleOrderButton" text="Order Title" />
-      <TextField fx:id="nBooks" layoutX="101.0" layoutY="116.0"/>
+      <TextField fx:id="nBooks" layoutX="101.0" layoutY="116.0" />
       <Button layoutX="343.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleUpdateButton" text="Update Title Stock" />
+      <Label fx:id="warningLabel" layoutX="329.0" layoutY="45.0" />
     </children>
 </AnchorPane>
