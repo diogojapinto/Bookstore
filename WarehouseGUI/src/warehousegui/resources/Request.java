@@ -5,6 +5,7 @@
  */
 package warehousegui.resources;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -12,9 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author diogo
  */
 @XmlRootElement
-public class Request {
+public class Request implements Serializable {
+    private Integer quantity;
+    private static final long serialVersionUID = 1L;
+    private Integer id;
     private String title;
-    private int quantity;
 
     public Request() {
         title = null;
@@ -32,6 +35,24 @@ public class Request {
         quantity = Integer.parseInt(elems[1]);
     }
 
+    public Request(Integer id) {
+        this.id = id;
+    }
+
+    public Request(Integer id, String title, int quantity) {
+        this.id = id;
+        this.title = title;
+        this.quantity = quantity;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -40,16 +61,42 @@ public class Request {
         this.title = title;
     }
 
-    public int getQuantity() {
-        return quantity;
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public void setAmount(int quantity) {
-        this.quantity = quantity;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Request)) {
+            return false;
+        }
+        Request other = (Request) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.book.warehouse.Request[ id=" + id + " ]";
     }
     
     public String toMessage() {
         return title + " " + quantity;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
     
 }

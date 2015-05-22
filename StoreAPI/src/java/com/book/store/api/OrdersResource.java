@@ -73,13 +73,8 @@ public class OrdersResource {
     @Path("deliverRequest")
     @Consumes("application/xml")
     public Response deliverRequest(Request request) {
-        Book book = (Book) em.createNamedQuery("Book.findByTitle")
-                .setParameter("title", request.getTitle()).getResultList().get(0);
-
-        book.setStock(book.getStock() + request.getAmount());
-        em.persist(book);
-
-        String msg = request.getTitle() + " stock updated to " + book.getStock();
+        String msg = request.getTitle() + " request received";
+        storage.addReceivedRequest(request);
         return Response.ok().entity(msg).build();
     }
 
