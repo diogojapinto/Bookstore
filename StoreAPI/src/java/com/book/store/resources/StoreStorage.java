@@ -92,10 +92,10 @@ public class StoreStorage {
         }
         return allOrders;
     }
-    
+
     public void addReceivedRequest(Request request) {
         requests.add(request);
-        
+
         for (String clientName : orders.keySet()) {
             ArrayList<Order> clientOrders = orders.get(clientName);
             for (int i = 0, l = clientOrders.size(); i < l; i++) {
@@ -109,20 +109,36 @@ public class StoreStorage {
     public ArrayList<Request> getAllRequests() {
         return requests;
     }
-    
-    public void dispatchOrder(int id) {
+
+    public boolean dispatchOrder(int id) {
         for (String clientName : orders.keySet()) {
             ArrayList<Order> clientOrders = orders.get(clientName);
             for (int i = 0, l = clientOrders.size(); i < l; i++) {
                 Order clientOrder = clientOrders.get(i);
                 if (clientOrder.getId() == id) {
-                    clientOrder.setStatus(Order.getDispatchedStatus(0));
-                    clientOrder.sendReceiptToEmail();
-                    clientOrders.remove(i);
-                    return;
+                    // Verify stock
+                    Book book = (Book) em.createNamedQuery("Book.findByTitle")
+                            .setParameter("title", clientOrder.getTitle()).getResultList().get(0);
+
+                    if (book == null) {
+                        return false;
+                    }
+
+                    if (book.getStock() > clientOrder.getQuantity()) {
+                        book.setStock(book.getStock() - clientOrder.getQuantity());
+                        em.persist(book);
+
+                        clientOrder.setStatus(Order.getDispatchedStatus(0));
+                        clientOrder.sendReceiptToEmail();
+                        clientOrders.remove(i);
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
+        return false;
     }
 
     public void acceptRequestDeliver(int id) {

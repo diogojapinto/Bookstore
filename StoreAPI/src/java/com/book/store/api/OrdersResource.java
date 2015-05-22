@@ -73,8 +73,8 @@ public class OrdersResource {
     @Path("dispatcPending")
     @Consumes("application/xml")
     public Response dispatchOrder(Order order) {
-        storage.dispatchOrder(order.getId());
-        return Response.ok().build();
+        boolean success = storage.dispatchOrder(order.getId());
+        return Response.ok(Boolean.toString(success)).build();
     }
     
     @GET
