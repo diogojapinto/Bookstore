@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -68,6 +69,14 @@ public class OrdersResource {
         }
     }
     
+    @PUT
+    @Path("dispatcPending")
+    @Consumes("application/xml")
+    public Response dispatchOrder(Order order) {
+        storage.dispatchOrder(order.getId());
+        return Response.ok().build();
+    }
+    
     @GET
     @Path("requests")
     @Produces("applications/xml")
@@ -83,8 +92,19 @@ public class OrdersResource {
         storage.addReceivedRequest(request);
         return Response.ok().entity(msg).build();
     }
+    
+    @POST
+    @Path("deliverRequest")
+    @Consumes("application/xml")
+    public Response acceptRequest(Request request) {
+        String msg = request.getTitle() + " request accepted";
+        storage.acceptRequestDeliver(request.getId());
+        return Response.ok().entity(msg).build();
+    }
 
     public void persist(Object object) {
         em.persist(object);
     }
+    
+    
 }
