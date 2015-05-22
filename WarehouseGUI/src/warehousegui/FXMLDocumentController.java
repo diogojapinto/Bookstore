@@ -41,7 +41,6 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
         if (availableRequestsComboBox.getValue() != null && !availableRequestsComboBox.getValue().toString().trim().isEmpty() && requestAmountDispatched.getText() != null && !requestAmountDispatched.getText().trim().isEmpty()) {
             if (Integer.parseInt(requestAmountDispatched.getText()) > 0 && Integer.parseInt(requestAmountDispatched.getText()) <= Integer.parseInt(requestAmount.getText())) {
                 Request request = new Request(availableRequestsComboBox.getValue().toString(),Integer.parseInt(requestAmountDispatched.getText()));

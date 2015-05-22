@@ -36,21 +36,29 @@ public class FXMLDocumentController implements Initializable {
     ArrayList<Book> availableBooks;
     
     @FXML
-    Label totalPriceLabel, warningLabel;
+    Label totalPriceLabel, warningLabel, statusLabel;
     
     @FXML
-    TextField nBooks, clientName;
+    TextField nBooks, clientName, address, email;
     
     @FXML
     ComboBox availableTitles;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty() && clientName.getText() != null && !clientName.getText().trim().isEmpty() && availableTitles.getValue() != null && availableTitles.getValue().toString().trim().isEmpty()) {
-            Order order = new Order();
-            order.setClientName(clientName.getText());
-            order.setQuantity(Integer.parseInt(nBooks.getText()));
-            ordersClient.placeOrder(order, "true");
+        if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty() && 
+                clientName.getText() != null && !clientName.getText().trim().isEmpty() && 
+                availableTitles.getValue() != null && !availableTitles.getValue().toString().trim().isEmpty() &&
+                address.getText() != null && !address.getText().trim().isEmpty() &&
+                email.getText() != null && !email.getText().trim().isEmpty()) {
+            Order order = new Order(availableTitles.getValue().toString(), Integer.parseInt(nBooks.getText()), clientName.getText(), email.getText(), null);
+            String returnedValue = ordersClient.placeOrder(order, "true").readEntity(String.class);
+            System.out.println(returnedValue);
+            if (returnedValue.equals("DELIVERED")) {
+                statusLabel.setText("Book delivered!");
+            } else if (returnedValue.equals("WAITING_EXPEDITION")) {
+                statusLabel.setText("Insufficient stock, asked the warehouse for more!");
+            }
         } else {
             warningLabel.setText("Values not set!");
        }

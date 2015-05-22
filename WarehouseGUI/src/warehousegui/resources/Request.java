@@ -44,7 +44,7 @@ public class Request {
         return quantity;
     }
 
-    public void setAmount(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
