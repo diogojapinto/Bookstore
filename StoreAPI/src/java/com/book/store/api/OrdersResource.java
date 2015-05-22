@@ -5,7 +5,6 @@
  */
 package com.book.store.api;
 
-import com.book.store.resources.Book;
 import com.book.store.resources.StoreStorage;
 import com.book.store.resources.Order;
 import com.book.store.resources.Order.StatusType;
@@ -67,6 +66,13 @@ public class OrdersResource {
         } else {
             return Response.ok().entity(status.toString()).build();
         }
+    }
+    
+    @GET
+    @Path("requests")
+    @Produces("applications/xml")
+    public ArrayList<Request> getAllRequests() {
+        return storage.getAllRequests();
     }
 
     @POST
