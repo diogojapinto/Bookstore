@@ -51,7 +51,7 @@ public class FXMLDocumentController implements Initializable {
                 availableTitles.getValue() != null && !availableTitles.getValue().toString().trim().isEmpty() &&
                 address.getText() != null && !address.getText().trim().isEmpty() &&
                 email.getText() != null && !email.getText().trim().isEmpty()) {
-            Order order = new Order(availableTitles.getValue().toString(), Integer.parseInt(nBooks.getText()), clientName.getText(), email.getText(), null);
+            Order order = new Order(availableTitles.getValue().toString(), Integer.parseInt(nBooks.getText()), clientName.getText(), address.getText(), email.getText(), null);
             String returnedValue = ordersClient.placeOrder(order, "true").readEntity(String.class);
             System.out.println(returnedValue);
             if (returnedValue.equals("DELIVERED")) {
@@ -65,13 +65,20 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void handleOrderButton(ActionEvent event) {
+    private void handleUpdateButton(ActionEvent event) {
+        
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("FXMLOrder.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLUpdate.fxml"));
+
+            Parent root = (Parent) loader.load();
         
             Scene scene = new Scene(root);
         
             Stage stage = new Stage();
+            
+            FXMLUpdateController controller = loader.<FXMLUpdateController>getController();
+                     
+            controller.updateLabel(availableTitles.getValue().toString());
         
             stage.setScene(scene);
         
@@ -82,8 +89,7 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void handleUpdateButton(ActionEvent event) {
-        
+    private void handleDispatchButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLUpdate.fxml"));
 
