@@ -38,7 +38,12 @@ public class FXMLDispatchController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         if (pendingOrdersComboBox.getValue() != null && !pendingOrdersComboBox.getValue().toString().trim().isEmpty()) {
-            ordersClient.dispatchOrder(currentOrderSelected);
+           boolean success = ordersClient.dispatchOrder(currentOrderSelected).readEntity(Boolean.class);
+           if (success) {
+               System.out.println("ola");
+           } else {
+               System.out.println("xau");
+           }
         } else {
             errorLabel.setText("You have to choose an order!");
        }
