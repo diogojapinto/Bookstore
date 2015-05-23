@@ -20,7 +20,6 @@ import javax.persistence.PersistenceContext;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/WarehousePool"),
-    @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "durable"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class WarehouseMessageBean implements MessageListener {
@@ -35,6 +34,7 @@ public class WarehouseMessageBean implements MessageListener {
         if (message instanceof TextMessage) {
             try {
                 String text = ((TextMessage) message).getText();
+                System.err.println("TEXT: " + text);
                 Request request = new Request(text);
                 em.persist(request);
                 

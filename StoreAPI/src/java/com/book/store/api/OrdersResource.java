@@ -94,7 +94,7 @@ public class OrdersResource {
     }
     
     @POST
-    @Path("deliverRequest")
+    @Path("acceptRequest")
     @Consumes("application/xml")
     public Response acceptRequest(Request request) {
         String msg = request.getTitle() + " request accepted";

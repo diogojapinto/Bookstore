@@ -1,5 +1,5 @@
 <order>
-    <title>test</title>
+    <title>JavaEE for Dummies</title>
     <quantity>10</quantity>
     <clientName>Diogo</clientName>
     <clientEmail>diogojapinto@gmail.com</clientEmail>
@@ -9,11 +9,11 @@
 <book>
     <price>2.0</price>
     <stock>5</stock>
-    <title>test</title>
+    <title>JavaEE for Dummies</title>
 </book> 
 
 <request>
-	<title>test</title>
+	<title>JavaEE for Dummies</title>
 	<amount>10</amount>
 </request>
 

@@ -30,7 +30,7 @@ public class Request implements Serializable {
     }
     
     public Request(String message) {
-        String[] elems = message.split(" ");
+        String[] elems = message.split("£");
         title = elems[0];
         quantity = Integer.parseInt(elems[1]);
     }
@@ -88,7 +88,7 @@ public class Request implements Serializable {
     }
     
     public String toMessage() {
-        return title + " " + quantity;
+        return title + "£" + quantity;
     }
 
     public Integer getQuantity() {
