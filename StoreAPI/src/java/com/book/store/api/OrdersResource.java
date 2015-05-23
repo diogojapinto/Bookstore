@@ -70,7 +70,7 @@ public class OrdersResource {
     }
     
     @PUT
-    @Path("dispatcPending")
+    @Path("dispatchPending")
     @Consumes("application/xml")
     public Response dispatchOrder(Order order) {
         boolean success = storage.dispatchOrder(order.getId());
@@ -79,7 +79,7 @@ public class OrdersResource {
     
     @GET
     @Path("requests")
-    @Produces("applications/xml")
+    @Produces("application/xml")
     public ArrayList<Request> getAllRequests() {
         return storage.getAllRequests();
     }

@@ -22,6 +22,6 @@
       <TextField fx:id="address" layoutX="101.0" layoutY="152.0" />
       <Label layoutX="22.0" layoutY="191.0" text="E-mail" />
       <TextField fx:id="email" layoutX="101.0" layoutY="187.0" />
-      <Button layoutX="343.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleDispatchButton" text="Disptach Pending Orders" />
+      <Button layoutX="343.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleDispatchButton" text="Dispatch Pending Orders" />
     </children>
 </AnchorPane>

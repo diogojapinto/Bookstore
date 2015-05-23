@@ -75,10 +75,6 @@ public class FXMLDocumentController implements Initializable {
             Scene scene = new Scene(root);
         
             Stage stage = new Stage();
-            
-            FXMLUpdateController controller = loader.<FXMLUpdateController>getController();
-                     
-            controller.updateLabel(availableTitles.getValue().toString());
         
             stage.setScene(scene);
         
@@ -91,17 +87,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleDispatchButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLUpdate.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDispatch.fxml"));
 
             Parent root = (Parent) loader.load();
         
             Scene scene = new Scene(root);
         
             Stage stage = new Stage();
-            
-            FXMLUpdateController controller = loader.<FXMLUpdateController>getController();
-                     
-            controller.updateLabel(availableTitles.getValue().toString());
         
             stage.setScene(scene);
         
