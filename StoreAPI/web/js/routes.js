@@ -6,20 +6,20 @@
 */
 angular.module('BookStore').config(function($routeProvider) {
   $routeProvider
-    .when('/', {
+    .when('StoreAPI/', {
       // redirect to the notes index
       redirectTo: '/placeOrder'
     })
     
-    .when('/placeOrder', {
+    .when('StoreAPI/placeOrder', {
       templateUrl: 'templates/pages/orders/place.html',
       controller: 'PlaceOrderController'
     })
     
-    .when('/viewOrders', {
+    .when('StoreAPI/viewOrders', {
       templateUrl: 'templates/pages/orders/show.html',
       controller: 'ViewOrdersController'
     })
 
     .otherwise({redirectTo: '/'});
-}]);
+});
