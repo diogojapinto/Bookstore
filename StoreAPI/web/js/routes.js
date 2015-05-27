@@ -22,4 +22,4 @@ angular.module('BookStore').config(function($routeProvider) {
     })
 
     .otherwise({redirectTo: '/'});
-}]);
+});
