@@ -6,9 +6,12 @@
 package com.book.warehouse.resources;
 
 import java.io.Serializable;
+import javax.annotation.Generated;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,8 +37,9 @@ public class Request implements Serializable {
     private Integer quantity;
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @Basic(optional = true)
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     @Basic(optional = false)
     @NotNull
