@@ -10,7 +10,7 @@
       <Label layoutX="47.0" layoutY="36.0" text="Requests" />
       <ComboBox fx:id="availableRequestsComboBox" layoutX="126.0" layoutY="32.0" prefWidth="150.0" />
       <Label layoutX="27.0" layoutY="71.0" text="Request Amount" />
-      <Label fx:id="requestAmount" layoutX="154.0" layoutY="71.0" text="0" />
+      <Label fx:id="requestAmount" layoutX="124.0" layoutY="71.0" prefHeight="17.0" prefWidth="255.0" />
       <Label layoutX="25.0" layoutY="108.0" text="Request Amount to be dispatched" />
       <TextField fx:id="requestAmountDispatched" layoutX="235.0" layoutY="104.0" />
       <Label fx:id="warningLabel" layoutX="25.0" layoutY="153.0" />

@@ -17,54 +17,53 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import storegui.resources.OrdersResource_JerseyClient;
-import storegui.resources.Order;
+import storegui.resources.Request;
 
 /**
  *
  * @author ASUS
  */
-public class FXMLDispatchController implements Initializable {
+public class FXMLRequestController implements Initializable {
     
     OrdersResource_JerseyClient ordersClient;
-    ArrayList<Order> pendingOrders;
-    Order currentOrderSelected;
+    ArrayList<Request> pendingRequests;
+    Request currentRequestSelected;
     
     @FXML
-    Label errorLabel, clientName;
+    Label errorLabel, quantityLabel;
     
     @FXML
-    ComboBox pendingOrdersComboBox;
+    ComboBox pendingRequestsComboBox;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (pendingOrdersComboBox.getValue() != null && !pendingOrdersComboBox.getValue().toString().trim().isEmpty()) {
-           int status = ordersClient.dispatchOrder(currentOrderSelected).getStatus();
+        if (pendingRequestsComboBox.getValue() != null && !pendingRequestsComboBox.getValue().toString().trim().isEmpty()) {
+           int status = ordersClient.acceptRequest(currentRequestSelected).getStatus();
+           System.out.println(status);
            if (status == 200) {
                 ((Node)(event.getSource())).getScene().getWindow().hide();
            } else {
-                errorLabel.setText("Error dispatching order");   
+                errorLabel.setText("Error accepting request");   
            }
         } else {
-            errorLabel.setText("You have to choose an order!");
+            errorLabel.setText("You have to choose a request!");
        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
         ordersClient = new OrdersResource_JerseyClient();
-        pendingOrders = ordersClient.getAllOrders();
-        for (int i = 0, l = pendingOrders.size(); i < l; i++) {
-            if (pendingOrders.get(i).getStatus().contains("dispatch will occur")) {
-                pendingOrdersComboBox.getItems().add(pendingOrders.get(i).getTitle());
-            }
+        pendingRequests = ordersClient.getAllRequests();
+        for (int i = 0, l = pendingRequests.size(); i < l; i++) {
+            pendingRequestsComboBox.getItems().add(pendingRequests.get(i).getTitle());
         }
         
-        pendingOrdersComboBox.valueProperty().addListener(new ChangeListener<String>() {
+        pendingRequestsComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
-               for (int i = 0, l = pendingOrders.size(); i < l; i++) {
-                   if (pendingOrders.get(i).getTitle().equals(pendingOrdersComboBox.getValue())) {
-                       currentOrderSelected = pendingOrders.get(i);
-                       clientName.setText(pendingOrders.get(i).getClientName());
+               for (int i = 0, l = pendingRequests.size(); i < l; i++) {
+                   if (pendingRequests.get(i).getTitle().equals(pendingRequestsComboBox.getValue())) {
+                       currentRequestSelected = pendingRequests.get(i);
+                       quantityLabel.setText("" + pendingRequests.get(i).getQuantity());
                    }
                }
             }    

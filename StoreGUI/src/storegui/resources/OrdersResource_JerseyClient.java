@@ -36,7 +36,7 @@ public class OrdersResource_JerseyClient {
     }
     
     public Response dispatchOrder(Object requestEntity) {
-        return webTarget.path("dispatchPending").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
+        return webTarget.path("dispatchPending").request(javax.ws.rs.core.MediaType.APPLICATION_XML).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
     }
     
     public <T> T getOrders(Class<T> responseType, String username) throws ClientErrorException {
@@ -56,7 +56,7 @@ public class OrdersResource_JerseyClient {
     }
     
     public Response acceptRequest(Object requestEntity) throws ClientErrorException{
-        return webTarget.path("deliverRequest").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
+        return webTarget.path("acceptRequest").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), Response.class);
     }
 
     public void close() {

@@ -132,7 +132,6 @@ public class StoreStorage {
 
                         clientOrder.setStatus(Order.getDispatchedStatus(0));
                         clientOrder.sendReceiptToEmail();
-                        clientOrders.remove(i);
                         return true;
                     } else {
                         return false;
@@ -151,6 +150,8 @@ public class StoreStorage {
 
                 book.setStock(book.getStock() + request.getQuantity());
                 em.persist(book);
+                requests.remove(request);
+                return;
             }
         }
     }

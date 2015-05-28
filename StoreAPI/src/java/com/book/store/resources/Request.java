@@ -23,6 +23,8 @@ public class Request implements Serializable {
         title = null;
         quantity = -1;
     }
+    
+    
 
     public Request(String title, int quantity) {
         this.title = title;

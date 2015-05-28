@@ -4,13 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="162.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storegui.FXMLDispatchController">
+<AnchorPane id="AnchorPane" prefHeight="162.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storegui.FXMLRequestController">
     <children>
       <Button fx:id="button" layoutX="112.0" layoutY="114.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="150.0" text="Dispatch" />
       <ComboBox fx:id="pendingOrdersComboBox" layoutX="112.0" layoutY="20.0" prefWidth="150.0" />
       <Label layoutX="20.0" layoutY="24.0" text="Pending Orders:" />
       <Label fx:id="errorLabel" layoutX="55.0" layoutY="73.0" textFill="#f20707" />
-      <Label layoutX="20.0" layoutY="56.0" text="Client Name" />
-      <Label fx:id="clienttName" layoutX="112.0" layoutY="56.0" />
+      <Label layoutX="20.0" layoutY="56.0" text="Quantity" />
+      <Label fx:id="quantityLabel" layoutX="106.0" layoutY="56.0" />
     </children>
 </AnchorPane>

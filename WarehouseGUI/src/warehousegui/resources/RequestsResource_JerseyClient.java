@@ -32,7 +32,7 @@ public class RequestsResource_JerseyClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_XML).get(new GenericType<ArrayList<Request>>(){});
     }
 
-    public Response removeRequest(String id) throws ClientErrorException {
+    public Response removeRequest(Integer id) throws ClientErrorException {
         return webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{id})).request().delete(Response.class);
     }
 

@@ -30,107 +30,117 @@ import storegui.resources.OrdersResource_JerseyClient;
  * @author ASUS
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     BooksResource_JerseyClient booksClient;
     OrdersResource_JerseyClient ordersClient;
     ArrayList<Book> availableBooks;
-    
+
     @FXML
     Label totalPriceLabel, warningLabel, statusLabel;
-    
+
     @FXML
     TextField nBooks, clientName, address, email;
-    
+
     @FXML
     ComboBox availableTitles;
-    
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty() && 
-                clientName.getText() != null && !clientName.getText().trim().isEmpty() && 
-                availableTitles.getValue() != null && !availableTitles.getValue().toString().trim().isEmpty() &&
-                address.getText() != null && !address.getText().trim().isEmpty() &&
-                email.getText() != null && !email.getText().trim().isEmpty()) {
+        if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty()
+                && clientName.getText() != null && !clientName.getText().trim().isEmpty()
+                && availableTitles.getValue() != null && !availableTitles.getValue().toString().trim().isEmpty()
+                && address.getText() != null && !address.getText().trim().isEmpty()
+                && email.getText() != null && !email.getText().trim().isEmpty()) {
             Order order = new Order(availableTitles.getValue().toString(), Integer.parseInt(nBooks.getText()), clientName.getText(), address.getText(), email.getText(), null);
             String returnedValue = ordersClient.placeOrder(order, "true").readEntity(String.class);
-            System.out.println(returnedValue);
             if (returnedValue.equals("DELIVERED")) {
                 statusLabel.setText("Book delivered!");
             } else if (returnedValue.equals("WAITING_EXPEDITION")) {
                 statusLabel.setText("Insufficient stock, asked the warehouse for more!");
             }
+            nBooks.setText("");
+            clientName.setText("");
+            availableTitles.setValue("");
+            address.setText("");
+            email.setText("");
+            totalPriceLabel.setText("");
         } else {
             warningLabel.setText("Values not set!");
-       }
-    }
-    
-    @FXML
-    private void handleUpdateButton(ActionEvent event) {
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLUpdate.fxml"));
-
-            Parent root = (Parent) loader.load();
-        
-            Scene scene = new Scene(root);
-        
-            Stage stage = new Stage();
-        
-            stage.setScene(scene);
-        
-            stage.show();
-        } catch (Exception e) {
-            
         }
     }
-    
+
+    @FXML
+    private void handleRequestsButton(ActionEvent event) {
+        if (ordersClient.getAllRequests().size() > 0) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLRequest.fxml"));
+
+                Parent root = (Parent) loader.load();
+
+                Scene scene = new Scene(root);
+
+                Stage stage = new Stage();
+
+                stage.setScene(scene);
+
+                stage.show();
+            } catch (Exception e) {
+
+            }
+        } else {
+            warningLabel.setText("There are no pending requests!");
+        }
+    }
+
     @FXML
     private void handleDispatchButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDispatch.fxml"));
 
             Parent root = (Parent) loader.load();
-        
+
             Scene scene = new Scene(root);
-        
+
             Stage stage = new Stage();
-        
+
             stage.setScene(scene);
-        
+
             stage.show();
         } catch (Exception e) {
-            
+
         }
+
     }
-    
+
     @Override
-    public void initialize(URL url, ResourceBundle rb) {    
-        booksClient = new BooksResource_JerseyClient(); 
+    public void initialize(URL url, ResourceBundle rb) {
+        booksClient = new BooksResource_JerseyClient();
         ordersClient = new OrdersResource_JerseyClient();
         availableBooks = booksClient.getAllBooksInfo();
         for (int i = 0, l = availableBooks.size(); i < l; i++) {
             availableTitles.getItems().add(availableBooks.get(i).getTitle());
         }
-        
+
         nBooks.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
-                try{
+                try {
                     Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
-                    totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
+                    totalPriceLabel.setText("" + book.getPrice() * Integer.parseInt(nBooks.getText()));
                 } catch (Exception e) {
-                    
+
                 }
             }
         });
-        
+
         availableTitles.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
+            @Override
+            public void changed(ObservableValue ov, String t, String t1) {
                 if (nBooks.getText() != null && !nBooks.getText().trim().isEmpty()) {
                     Book book = booksClient.getBookInfo(availableTitles.getValue().toString());
-                    totalPriceLabel.setText(""+book.getPrice()*Integer.parseInt(nBooks.getText()));
+                    totalPriceLabel.setText("" + book.getPrice() * Integer.parseInt(nBooks.getText()));
                 }
-            }    
+            }
         });
     }
 }
