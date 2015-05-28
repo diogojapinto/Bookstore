@@ -1,0 +1,34 @@
+<div class="well well-lg text-center">
+    <h2>View your past orders</h2><br>
+    <a class="btn btn-lg btn-default" href="#/viewOrders">
+        View Orders
+    </a>
+</div>
+<h2 ng-show="!waiting">Place a new order</h2>
+<div ng-show="!waiting" class="container">
+    <form class="form">
+        <fieldset class="form-field">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-input" name="name" ng-model="user.name" placeholder='Username'/>
+        </fieldset>
+        <fieldset class="form-field">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" name="email" ng-model="user.email" placeholder='user@example.com' />
+            <input class="form-input" name="emailConfirm" ng-model="user.emailConfirm" placeholder='email confirm' />
+        </fieldset>
+        <fieldset class="form-field">
+            <label class="form-label" for="title">Title</label>
+            <ui-select ng-model="book.title" theme="bootstrap" style="min-width: 300px;">
+                <ui-select-match placeholder="Select a title...">{{$select.selected.title}}</ui-select-match>
+                <ui-select-choices repeat="book in books">
+                    <div ng-bind-html="book.title"></div>
+                </ui-select-choices>
+            </ui-select>
+        </fieldset>
+        <fieldset class="form-field">
+            <label class="form-label" for="title">Quantity</label>
+            <input class="form-input" name="title" ng-model="book.title" placeholder='1' />
+        </fieldset>
+        <button class="btn btn-info btn-lg" type="button">Submit order</button>
+    </form>
+</div>

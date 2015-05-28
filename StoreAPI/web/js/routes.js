@@ -12,12 +12,12 @@ angular.module('BookStore').config(function($routeProvider) {
     })
     
     .when('/placeOrder', {
-      templateUrl: 'WebContent/templates/pages/orders/place.html',
+      templateUrl: 'templates/pages/orders/place.html',
       controller: 'PlaceOrderController'
     })
     
     .when('/viewOrders', {
-      templateUrl: 'WebContent/templates/pages/orders/show.html',
+      templateUrl: 'templates/pages/orders/show.html',
       controller: 'ViewOrdersController'
     })
 
