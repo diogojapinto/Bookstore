@@ -3,6 +3,7 @@
     <quantity>10</quantity>
     <clientName>Diogo</clientName>
     <clientEmail>diogojapinto@gmail.com</clientEmail>
+    <clientAddress>rua de oiwehfowih</clientAddress>
 </order>
 
 

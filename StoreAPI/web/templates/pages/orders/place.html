@@ -14,21 +14,22 @@
         <fieldset class="form-field">
             <label class="form-label" for="email">Email</label>
             <input class="form-input" name="email" ng-model="user.email" placeholder='user@example.com' />
-            <input class="form-input" name="emailConfirm" ng-model="user.emailConfirm" placeholder='email confirm' />
+        </fieldset>
+        <fieldset class="form-field">
+            <label class="form-label" for="address">Address</label>
+            <textarea class="form-input" name="address" ng-model="user.address" placeholder='Address' />
         </fieldset>
         <fieldset class="form-field">
             <label class="form-label" for="title">Title</label>
-            <ui-select ng-model="book.title" theme="bootstrap" style="min-width: 300px;">
-                <ui-select-match placeholder="Select a title...">{{$select.selected.title}}</ui-select-match>
-                <ui-select-choices repeat="book in books">
-                    <div ng-bind-html="book.title"></div>
-                </ui-select-choices>
-            </ui-select>
+            <select name="title" ng-model="selectedBook" ng-options="book.title for book in books">
+            </select>
+            <tt ng-show="selectedBook">Price: {{selectedBook.price}}<i class="glyphicon-euro"></i></tt>
         </fieldset>
         <fieldset class="form-field">
-            <label class="form-label" for="title">Quantity</label>
-            <input class="form-input" name="title" ng-model="book.title" placeholder='1' />
+            <label class="form-label" for="quantity">Quantity</label>
+            <input class="form-input" name="quantity" ng-model="book.quantity" placeholder='1' />
         </fieldset>
-        <button class="btn btn-info btn-lg" type="button">Submit order</button>
+        <button class="btn btn-info btn-lg" type="button" ng-click="placeOrder()">Submit order</button>
+        <label ng-class="{'bg-danger' : order.success, 'bg-success' : order.success}">{{order.message}}</label>
     </form>
 </div>
