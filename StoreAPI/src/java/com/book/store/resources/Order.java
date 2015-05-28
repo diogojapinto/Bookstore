@@ -182,7 +182,7 @@ public class Order {
     
     public void printReceipt() {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh_mm_ss");
         String date = sdf.format(new Date());
 
         Path path = Paths.get(System.getProperty("user.home"), "receipts", date + ".txt");
