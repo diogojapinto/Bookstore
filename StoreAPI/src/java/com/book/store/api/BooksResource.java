@@ -38,7 +38,7 @@ public class BooksResource {
     }
     
     @GET
-    @Produces("application/xml")
+    @Produces({"application/xml", "application/json"})
     public ArrayList<Book> getAllBooksInfo() {
         return new ArrayList<Book>(em.createNamedQuery("Book.findAll")
                 .getResultList());
