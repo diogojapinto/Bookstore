@@ -80,9 +80,9 @@ public class StoreStorage {
             sendJMSMessageToWarehousePool(request.toMessage());
 
             order.setStatus(Order.getWaitingExpeditionStatus());
-            orders.putIfAbsent(clientName, new ArrayList<>());
-            orders.get(clientName).add(order);
         }
+        orders.putIfAbsent(clientName, new ArrayList<>());
+        orders.get(clientName).add(order);
 
         return Order.getOrderStatusType(order.getStatus());
     }

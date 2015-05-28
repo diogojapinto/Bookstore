@@ -4,7 +4,7 @@ angular.module('BookStore').factory('Store', function ($http) {
             return $http({method: 'GET', url: '/StoreAPI/webresources/orders/' + id});
         },
         placeOrder: function (newOrder) {
-            return $http({method: 'POST', url: '/StoreAPI/webresources/orders/true',
+            return $http({method: 'POST', url: '/StoreAPI/webresources/orders/false',
                 data: newOrder});
         },
         getBooksList: function () {

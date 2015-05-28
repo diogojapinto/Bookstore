@@ -30,6 +30,6 @@
             <input class="form-input" name="quantity" ng-model="book.quantity" placeholder='1' />
         </fieldset>
         <button class="btn btn-info btn-lg" type="button" ng-click="placeOrder()">Submit order</button>
-        <label ng-class="{'bg-danger' : order.success, 'bg-success' : order.success}">{{order.message}}</label>
+        <label ng-class="{'bg-danger' : order.error, 'bg-success' : order.success}">{{order.message}}</label>
     </form>
 </div>
