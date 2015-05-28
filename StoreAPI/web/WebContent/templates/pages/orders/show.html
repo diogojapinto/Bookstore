@@ -1,4 +1,52 @@
-<h3>Orders</h3>
-<div ng-repeat="order in orders">
-
-</div>
+<!DOCTYPE HTML>
+<html lang="en" ng-app="BookStore">
+    <head>
+        <title>Orders</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="WebContent/css/show.css">
+        <link rel="stylesheet" href="WebContent/css/bootstrap.css">
+    </head>
+    <body ng-controller="ViewOrdersController as ctrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                <h2>Enter your username</h2>
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                        <input type="text" class="form-control input-lg" placeholder="Username" ng-model="username"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button" ng-click="retrieveOrders()">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>Orders</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table" id="table">
+                        <thead>
+                            <tr>
+                                <th>First column</th>
+                                <th>Second column</th>
+                                <th>Third column</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="order in orders">
+                            <tr>
+                                <td>Introducing</td>
+                                <td>jQuery</td>
+                                <td>Searchable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <hr>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

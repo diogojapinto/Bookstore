@@ -1,4 +1,4 @@
-angular.module('BookStore').factory('Store', function NoteFactory() {  
+angular.module('BookStore').factory('Store', function ($http) {  
   return {
     getUserOrders: function(id) {
       return $http({method: 'GET', url: '/webresources/orders/' + id});
