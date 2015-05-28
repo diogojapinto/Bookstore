@@ -57,6 +57,8 @@ public class StoreStorage {
         // Verify stock
         Book book = (Book) em.createNamedQuery("Book.findByTitle")
                 .setParameter("title", title).getResultList().get(0);
+        
+        System.out.println(book.getTitle());
 
         if (book == null) {
             return Order.StatusType.NONE;
