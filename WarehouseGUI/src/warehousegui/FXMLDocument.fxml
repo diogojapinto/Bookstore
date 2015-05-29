@@ -4,15 +4,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="215.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehousegui.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="249.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehousegui.FXMLDocumentController">
     <children>
-        <Button fx:id="button" layoutX="239.0" layoutY="176.0" onAction="#handleButtonAction" text="Dispatch" />
+        <Button fx:id="button" layoutX="239.0" layoutY="203.0" onAction="#handleButtonAction" text="Dispatch" />
       <Label layoutX="47.0" layoutY="36.0" text="Requests" />
       <ComboBox fx:id="availableRequestsComboBox" layoutX="126.0" layoutY="32.0" prefWidth="150.0" />
       <Label layoutX="27.0" layoutY="71.0" text="Request Amount" />
       <Label fx:id="requestAmount" layoutX="124.0" layoutY="71.0" prefHeight="17.0" prefWidth="255.0" />
-      <Label layoutX="25.0" layoutY="108.0" text="Request Amount to be dispatched" />
-      <TextField fx:id="requestAmountDispatched" layoutX="235.0" layoutY="104.0" />
+      <Label layoutX="25.0" layoutY="116.0" text="Request Amount to be dispatched" />
+      <TextField fx:id="requestAmountDispatched" layoutX="239.0" layoutY="112.0" />
       <Label fx:id="warningLabel" layoutX="25.0" layoutY="153.0" />
+      <Label layoutX="27.0" layoutY="94.0" text="Title Name" />
+      <Label fx:id="titleLabel" layoutX="126.0" layoutY="94.0" />
     </children>
 </AnchorPane>

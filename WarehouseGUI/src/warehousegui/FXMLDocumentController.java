@@ -38,7 +38,7 @@ public class FXMLDocumentController implements Initializable {
     TextField requestAmountDispatched;
 
     @FXML
-    Label requestAmount, warningLabel;
+    Label requestAmount, warningLabel, titleLabel;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -73,15 +73,17 @@ public class FXMLDocumentController implements Initializable {
         ordersClient = new OrdersResource_JerseyClient();
         availableRequests = requestsClient.getRequests();
         for (int i = 0, l = availableRequests.size(); i < l; i++) {
-            availableRequestsComboBox.getItems().add(availableRequests.get(i).getTitle());
+            availableRequestsComboBox.getItems().add(availableRequests.get(i).getId().toString());
         }
 
         availableRequestsComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue ov, String t, String t1) {
+                System.out.println(availableRequestsComboBox.getValue());
                 for (int i = 0, l = availableRequests.size(); i < l; i++) {
-                    if (availableRequestsComboBox.getValue().toString().equals(availableRequests.get(i).getTitle())) {
+                    if (availableRequestsComboBox.getValue().toString().equals(availableRequests.get(i).getId().toString())) {
                         requestAmount.setText("" + availableRequests.get(i).getQuantity());
+                        titleLabel.setText(availableRequests.get(i).getTitle());
                         currentSelectedRequest = availableRequests.get(i);
                         break;
                     }

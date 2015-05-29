@@ -73,19 +73,17 @@ public class FXMLDocumentController implements Initializable {
     private void handleRequestsButton(ActionEvent event) {
         if (ordersClient.getAllRequests().size() > 0) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLRequest.fxml"));
-
-                Parent root = (Parent) loader.load();
-
+                Parent root = FXMLLoader.load(getClass().getResource("FXMLRequest.fxml"));
+        
                 Scene scene = new Scene(root);
-
+        
                 Stage stage = new Stage();
-
+            
                 stage.setScene(scene);
-
+            
                 stage.show();
             } catch (Exception e) {
-
+                System.out.println(e);
             }
         } else {
             warningLabel.setText("There are no pending requests!");

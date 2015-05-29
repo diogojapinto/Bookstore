@@ -38,11 +38,12 @@ public class FXMLDispatchController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         if (pendingOrdersComboBox.getValue() != null && !pendingOrdersComboBox.getValue().toString().trim().isEmpty()) {
-           int status = ordersClient.dispatchOrder(currentOrderSelected).getStatus();
-           if (status == 200) {
+           String status = ordersClient.dispatchOrder(currentOrderSelected).readEntity(String.class);
+           System.out.println(status);
+           if (status.equals("true")) {
                 ((Node)(event.getSource())).getScene().getWindow().hide();
-           } else {
-                errorLabel.setText("Error dispatching order");   
+           } else if (status.equals("false")) {
+                errorLabel.setText("Not enough stock");   
            }
         } else {
             errorLabel.setText("You have to choose an order!");
